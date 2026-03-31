@@ -1,0 +1,696 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Share Tech Mono', monospace;
+    background: #0a0a0a;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Scanline Effect */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 255, 65, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), 0 0 40px rgba(0, 255, 65, 0.4);
+    z-index: 1000;
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { top: -5px; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100vh; opacity: 0; }
+}
+
+/* CRT Effect */
+.crt::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 255, 0.06), rgba(255, 0, 0, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* Glitch Animation */
+.glitch {
+    position: relative;
+    animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff0000;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    20% { clip: rect(54px, 9999px, 96px, 0); }
+    40% { clip: rect(70px, 9999px, 99px, 0); }
+    60% { clip: rect(3px, 9999px, 63px, 0); }
+    80% { clip: rect(37px, 9999px, 95px, 0); }
+    100% { clip: rect(68px, 9999px, 39px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 99px, 0); }
+    20% { clip: rect(8px, 9999px, 46px, 0); }
+    40% { clip: rect(78px, 9999px, 13px, 0); }
+    60% { clip: rect(15px, 9999px, 53px, 0); }
+    80% { clip: rect(93px, 9999px, 7px, 0); }
+    100% { clip: rect(42px, 9999px, 82px, 0); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    10% { transform: skew(-2deg); }
+    20% { transform: skew(2deg); }
+    30% { transform: skew(0deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* Container */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* Login Box */
+.login-box {
+    background: rgba(10, 10, 10, 0.9);
+    border: 2px solid #333;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.login-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff0000, #00ffff, #ff0000, #00ffff);
+    z-index: -1;
+    animation: border-glow 3s linear infinite;
+    background-size: 400%;
+}
+
+@keyframes border-glow {
+    0%, 100% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.header p {
+    color: #00ff41;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00ffff;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #444;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5), inset 0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+.input-group input::placeholder {
+    color: #555;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 20px;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+    animation: pulse-error 1s infinite;
+}
+
+@keyframes pulse-error {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+    border: none;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: linear-gradient(45deg, #00ffff, #00cccc);
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+
+.btn-login:hover::before {
+    left: 100%;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #555;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '◆';
+    color: #ff0000;
+    margin: 0 10px;
+}
+
+.topup-link {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.topup-link:hover {
+    background: rgba(0, 255, 65, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    text-shadow: 0 0 10px #00ff41;
+}
+
+.topup-link::after {
+    content: '>>';
+    margin-left: 10px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #444;
+}
+
+.binary-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.03;
+    font-size: 14px;
+    line-height: 14px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Error shake animation */
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid #333;
+    padding: 5px 20px;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    color: #00ff41;
+}
+
+.status-bar span {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+    padding-top: 60px;
+    min-height: 100vh;
+}
+
+.nav-bar {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    border-bottom: 2px solid #ff0000;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+}
+
+.nav-brand {
+    font-size: 1.5em;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    color: #00ff41;
+    font-size: 0.9em;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    padding: 8px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-logout:hover {
+    background: #ff0000;
+    color: #000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+.main-content {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background: rgba(255, 0, 0, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff41, transparent);
+    animation: scan-line 3s linear infinite;
+}
+
+@keyframes scan-line {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.welcome-text {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #00ffff;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.section-title {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    color: #ff0000;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ff0000, transparent);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.card {
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid #333;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff0000, #00ffff);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card:hover {
+    border-color: #00ffff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.3em;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.card-badge {
+    background: #ff0000;
+    color: #000;
+    padding: 3px 10px;
+    font-size: 0.7em;
+    font-weight: bold;
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.card-price {
+    font-size: 2em;
+    color: #00ff41;
+    margin: 15px 0;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.card-desc {
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+.btn-buy {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-buy:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+}
+
+.promo-banner {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(0, 255, 255, 0.1));
+    border: 2px solid #ff0000;
+    padding: 30px;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-banner::before {
+    content: 'PROMO';
+    position: absolute;
+    top: -10px;
+    right: -30px;
+    background: #ff0000;
+    color: #000;
+    padding: 20px 40px;
+    font-size: 0.8em;
+    font-weight: bold;
+    transform: rotate(45deg);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+}
+
+.promo-text {
+    font-size: 1.5em;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    margin-bottom: 10px;
+    animation: glitch-text 3s infinite;
+}
+
+@keyframes glitch-text {
+    0%, 90%, 100% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+    92% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; }
+    94% { text-shadow: 2px 0 #00ffff, -2px 0 #ff0000; }
+    96% { text-shadow: -2px 0 #00ffff, 2px 0 #ff0000; }
+}
+
+.joki-section {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ffff;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.joki-title {
+    color: #00ffff;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.joki-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.joki-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.joki-item:hover {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.rank-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Loading Animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+}
+
+.loading-text {
+    font-size: 1.5em;
+    color: #00ff41;
+    margin-bottom: 20px;
+    animation: typing 2s steps(20) infinite;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff0000, #00ffff);
+    width: 0%;
+    animation: load 2s ease-in-out infinite;
+}
+
+@keyframes load {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+
+@keyframes typing {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
